@@ -9,6 +9,7 @@ import categoryRouter from './routes/category.route.js';
 import productRouter from './routes/product.route.js';
 import cartRouter from './routes/cart.route.js';
 import orderRouter from './routes/order.route.js';
+import cors from 'cors'
 
 dotenv.config();
 const server = express();
@@ -16,6 +17,10 @@ const server = express();
 // parsers
 server.use(express.json());
 server.use(cookieParser());
+server.use(cors({
+    origin: 'https://hobb-springs-ecommerce.onrender.com',
+    credentials: true,
+}))
 // Allow requests from your frontend
 server.use(cors({
   origin: 'http://localhost:5173',
