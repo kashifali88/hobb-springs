@@ -20,6 +20,8 @@ export default function Profile() {
   const [file, setFile] = useState(null);
   const [formData, setFormData] = useState({});
   const dispatch = useDispatch();
+    const API = import.meta.env.VITE_BACKEND_URL
+
 
   const fileRef = useRef();
 
@@ -38,7 +40,7 @@ export default function Profile() {
   const uploadImage = async () => {
     const data = new FormData();
     data.append("file", file);
-    data.append("upload_preset", import.meta.env.VITE_UPLOAD_PRESET);
+    data.append("upload_preset", import.meta.env.VITE_PROFILE_UPLOAD_PRESET);
 
     const res = await fetch(
       `https://api.cloudinary.com/v1_1/${import.meta.env.VITE_CLOUDINARY_NAME}/image/upload`,
@@ -76,7 +78,7 @@ export default function Profile() {
         profileImage = await uploadImage();
       }
 
-      const res = await fetch(`/api/user/${currentUser._id}`, {
+      const res = await fetch(`${API}/api/user/${currentUser._id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
@@ -100,7 +102,7 @@ export default function Profile() {
   const handleDeleteUser = async () => {
     try {
       dispatch(deleteUserStart());
-      const res = await fetch(`/api/user/${currentUser._id}`, {
+      const res = await fetch(`${API}/api/user/${currentUser._id}`, {
         method: "DELETE",
         credentials: "include",
       });
@@ -122,7 +124,7 @@ export default function Profile() {
   const handleSignOutUser = async () => {
     try {
       dispatch(signOutStart());
-      const res = await fetch(`/api/auth/signout`, {
+      const res = await fetch(`${API}/api/auth/signout`, {
         method: "POST",
         credentials: "include",
       });

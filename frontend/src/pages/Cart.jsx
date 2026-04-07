@@ -8,13 +8,14 @@ import { useDispatch } from "react-redux";
 export default function Cart() {
   const [cart, setCart] = useState([]);
   const [loading, setLoading] = useState(false);
- 
+ const API = import.meta.env.VITE_BACKEND_URL
+
 const dispatch = useDispatch();
   // FETCH CART FROM BACKEND
   const fetchCart = async () => {
     try {
       setLoading(true)
-      const res = await fetch("/api/cart", {
+      const res = await fetch(`${API}/api/cart`, {
         credentials: "include",
       });
 
@@ -40,7 +41,7 @@ const dispatch = useDispatch();
   // UPDATE QUANTITY
   const handleUpdateQuantity = async (id, quantity) => {
     try {
-      const res = await fetch(`/api/cart/${id}`, {
+      const res = await fetch(`${API}/api/cart/${id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -64,7 +65,7 @@ const dispatch = useDispatch();
   // DELETE ITEM
   const handleRemove = async (id) => {
     try {
-      const res = await fetch(`/api/cart/${id}`, {
+      const res = await fetch(`${API}/api/cart/${id}`, {
         method: "DELETE",
         credentials: "include",
       });

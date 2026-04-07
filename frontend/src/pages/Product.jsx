@@ -13,6 +13,7 @@ export default function Product() {
   const [product, setProduct] = useState({});
   const [loading, setLoading] = useState(false);
   const navigate  = useNavigate();
+    const API = import.meta.env.VITE_BACKEND_URL
 
 const handleAddToCart = async() => {
   try {
@@ -21,7 +22,7 @@ const handleAddToCart = async() => {
     navigate("/sign-in");
     return;
   }
-  const res = await fetch('/api/cart', {
+  const res = await fetch(`${API}/api/cart`, {
     method:'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -44,7 +45,7 @@ const handleAddToCart = async() => {
   const getProduct = async () => {
     try {
       setLoading(true);
-      const res = await fetch(`/api/products/get-product/${slug}`);
+      const res = await fetch(`${API}/api/products/get-product/${slug}`);
       const data = await res.json();
 
       if (!res.ok || data.success === false) {

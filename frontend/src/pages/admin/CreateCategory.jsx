@@ -12,6 +12,7 @@ export default function CreateCategory() {
   const [openEdit, setOpenEdit] = useState(false);
   const [updatedName, setUpdatedName] = useState("")
   const [selectedCategory, setSelectedCategory] = useState(null);
+  const API = import.meta.env.VITE_BACKEND_URL
 
 const handleEditClick = (category) =>  {
   setSelectedCategory(category);
@@ -22,7 +23,7 @@ const handleEditClick = (category) =>  {
   const handleUpdateCategory = async (e) => {
     e.preventDefault()
     try {
-      const res = await fetch(`/api/category/update-category/${selectedCategory._id}`, {
+      const res = await fetch(`${API}/api/category/update-category/${selectedCategory._id}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json'
@@ -51,7 +52,7 @@ const handleEditClick = (category) =>  {
       try {
         setError(null);
 
-        const res = await fetch('/api/category/');
+        const res = await fetch(`${API}/api/category/`);
         const data = await res.json();
         
 
@@ -81,7 +82,7 @@ const handleEditClick = (category) =>  {
       return toast.error('Category name is required');
     }
 
-    const res = await fetch('/api/category/create-category', {
+    const res = await fetch(`${API}/api/category/create-category`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -111,7 +112,7 @@ const handleEditClick = (category) =>  {
 // handle delete category
 const handleDeleteCategory = async (id) => {
   try {
-    const res = await fetch(`/api/category/${id}`, {
+    const res = await fetch(`${API}/api/category/${id}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json'

@@ -7,13 +7,15 @@ import { useNavigate } from 'react-router-dom';
 export default function OAuth() {
   const [data, setData] = useState({})
   const navigate = useNavigate()
+  const API = import.meta.env.VITE_BACKEND_URL
+
   const handleGoogleClick = async () => {
     const auth = getAuth(app);
     try {
       const provider = new GoogleAuthProvider();
       provider.setCustomParameters({prompt: 'select_account'});
       const result = await signInWithPopup(auth, provider);
-      const res = await fetch('/api/auth/google', {
+      const res = await fetch(`${API}/api/auth/google`, {
         method:'POST',
         headers: {
           'Content-Type': 'application/json'

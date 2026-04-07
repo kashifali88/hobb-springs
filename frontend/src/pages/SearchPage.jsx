@@ -8,6 +8,7 @@ export default function Search() {
   const location = useLocation();
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
+  const API = import.meta.env.VITE_BACKEND_URL
 
   // get search query from URL
   const params = new URLSearchParams(location.search);
@@ -16,7 +17,7 @@ export default function Search() {
   const fetchSearchResults = async () => {
     try {
       setLoading(true);
-      const res = await fetch(`/api/products/filter?search=${query}`);
+      const res = await fetch(`${API}/api/products/filter?search=${query}`);
       const data = await res.json();
       if (!res.ok || data.success === false) throw new Error(data.message);
       setProducts(data.products);

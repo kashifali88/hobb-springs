@@ -6,13 +6,15 @@ export default function Products() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null);
+    const API = import.meta.env.VITE_BACKEND_URL
+
 
   // fetch all products
   const getAllProducts = async () => {
     try {
       setLoading(false);
       setError(null);
-       const res = await fetch('/api/products/get-products');
+       const res = await fetch(`${API}/api/products/get-products`);
     const data = await res.json();
     if (!res.ok || data.success === false) {
       setError(data.message)

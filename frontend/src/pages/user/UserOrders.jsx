@@ -3,10 +3,12 @@ import { toast } from "react-toastify";
 
 export default function UserOrders() {
   const [orders, setOrders] = useState([]);
+    const API = import.meta.env.VITE_BACKEND_URL
+
 
   const fetchOrders = async () => {
     try {
-      const res = await fetch("/api/order/user/orders", {
+      const res = await fetch(`${API}/api/order/user/orders`, {
         credentials: "include",
       });
 

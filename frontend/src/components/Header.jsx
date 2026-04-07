@@ -8,6 +8,8 @@ import {
   signOutFailure,
 } from "../redux/userSlice";
 
+const API = import.meta.env.VITE_BACKEND_URL
+
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false); // mobile hamburger menu
   const [profileOpen, setProfileOpen] = useState(false);
@@ -53,7 +55,7 @@ export default function Header() {
   const handleSignOut = async () => {
     try {
       dispatch(signOutStart());
-      const res = await fetch("/api/auth/signout", {
+      const res = await fetch(`${API}/api/auth/signout`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "include",

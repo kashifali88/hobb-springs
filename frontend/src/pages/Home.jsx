@@ -15,6 +15,8 @@ export default function Home() {
   const [totalProducts, setTotalProducts] = useState(0)
   const [searchTerm, setSearchTerm] = useState('')
   const navigate = useNavigate();
+  const API = import.meta.env.VITE_BACKEND_URL
+
 
 
    // handle search 
@@ -30,7 +32,7 @@ export default function Home() {
   const getProducts = async (pageNumber =1) => {
     try {
       setLoading(true);
-      const res = await fetch(`/api/products/get-products?page=${pageNumber}&limit=16`);
+      const res = await fetch(`${API}/api/products/get-products?page=${pageNumber}&limit=16`);
       const data = await res.json();
       if (!res.ok || data.success === false) throw new Error(data.message);
       setProducts(pageNumber === 1 ? data.products : [...products, ...data.products]);
@@ -64,7 +66,7 @@ const handleLoadMore = () => {
       }
 
       const queryString = query.length ? `?${query.join('&')}` : '';
-      const res = await fetch(`/api/products/filter${queryString}`);
+      const res = await fetch(`${API}/api/products/filter${queryString}`);
       const data = await res.json();
       if (!res.ok || data.success === false) throw new Error(data.message);
 
@@ -87,7 +89,7 @@ const handleLoadMore = () => {
   // Fetch all categories
   const getCategories = async () => {
     try {
-      const res = await fetch('/api/category');
+      const res = await fetch(`{${API}/api/category`);
       const data = await res.json();
       if (!res.ok || data.success === false) throw new Error(data.message);
       setCategories(data.category);

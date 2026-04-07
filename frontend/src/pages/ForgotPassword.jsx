@@ -6,13 +6,15 @@ import { toast } from "react-toastify";
 export default function ForgotPassword() {
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
+  const API = import.meta.env.VITE_BACKEND_URL
+
 
 
   const handleSubmit = async (e) => {
     e.preventDefault()
 try {
     setLoading(true)
-    const res = await fetch('/api/auth/forgot-password', {
+    const res = await fetch(`${API}/api/auth/forgot-password`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

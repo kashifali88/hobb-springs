@@ -9,6 +9,8 @@ export default function ResetPassword() {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const { token } = useParams()
+    const API = import.meta.env.VITE_BACKEND_URL
+
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
@@ -23,7 +25,7 @@ export default function ResetPassword() {
             setError('Password do not match');
             return;
         }
-        const res = await fetch(`/api/auth/reset-password/${token}`, {
+        const res = await fetch(`${API}/api/auth/reset-password/${token}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

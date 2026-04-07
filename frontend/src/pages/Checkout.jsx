@@ -4,6 +4,8 @@ import { toast } from "react-toastify";
 
 export default function Checkout() {
   const [cart, setCart] = useState([]);
+  const API = import.meta.env.VITE_BACKEND_URL
+
 
   const [formData, setFormData] = useState({
     firstName: "",
@@ -21,7 +23,7 @@ export default function Checkout() {
   // fetch cart
   const fetchCart = async () => {
     try {
-      const res = await fetch("/api/cart", {
+      const res = await fetch(`${API}/api/cart`, {
         credentials: "include",
       });
       const data = await res.json();
@@ -58,7 +60,7 @@ export default function Checkout() {
 
     try {
         if (formData.paymentMethod === "stripe") {
-  const res = await fetch("/api/order/stripe", {
+  const res = await fetch(`${API}/api/order/stripe`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     credentials: "include",
@@ -72,7 +74,7 @@ export default function Checkout() {
   window.location.href = data.url; // redirect to Stripe test page
 } else {
   // COD flow
-      const res = await fetch("/api/order/create-order", {
+      const res = await fetch(`${API}/api/order/create-order`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

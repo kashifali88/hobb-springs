@@ -10,6 +10,8 @@ export default function SignUp() {
   const navigate= useNavigate();
   const { currentUser, loading, error } = useSelector(((state) => state.user));
   const dispatch =useDispatch()
+    const API = import.meta.env.VITE_BACKEND_URL
+
 
   // handle input change
   const handleChange = (e) => {
@@ -25,7 +27,7 @@ try {
     dispatch(signInFailure('Please fill all required fields'))
     return;
   }
-  const res = await fetch('/api/auth/sign-up', {
+  const res = await fetch(`${API}/api/auth/sign-up`, {
     method: "POST",
     headers: {
       'Content-Type': 'application/json'

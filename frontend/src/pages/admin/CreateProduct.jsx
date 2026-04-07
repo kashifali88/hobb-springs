@@ -11,6 +11,8 @@ export default function CreateProduct() {
   const [loading, setLoading] = useState(false);
   const [productLoading, setProductLoading] = useState(false);
   const navigate = useNavigate();
+    const API = import.meta.env.VITE_BACKEND_URL
+
   // handle inputs
   const handleChange = (e) => {
     setFormData({ ...formdata, [e.target.id]: e.target.value });
@@ -24,7 +26,7 @@ export default function CreateProduct() {
       setImageUploading(true);
       const data = new FormData();
       data.append("file", file);
-      data.append("upload_preset", import.meta.env.VITE_UPLOAD_PRESET);
+      data.append("upload_preset", import.meta.env.VITE_PRODUCT_UPLOAD_PRESET);
       const res = await fetch(
         `https://api.cloudinary.com/v1_1/${import.meta.env.VITE_CLOUDINARY_NAME}/image/upload`,
         {
@@ -48,7 +50,7 @@ export default function CreateProduct() {
     try {
       setError(null);
 
-      const res = await fetch("/api/category/");
+      const res = await fetch(`${API}/api/category/`);
       const data = await res.json();
 
       if (!res.ok || data.success === false) {
@@ -73,7 +75,7 @@ export default function CreateProduct() {
       if (!formdata.productImage) {
         return toast.error("Please upload product image");
       }
-      const res = await fetch("/api/products/create-product", {
+      const res = await fetch(`${API}/api/products/create-product`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
