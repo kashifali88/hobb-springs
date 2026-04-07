@@ -50,7 +50,7 @@ export default function CreateProduct() {
     try {
       setError(null);
 
-      const res = await fetch(`${API}/api/category/`);
+      const res = await fetch(`${API}/api/category`);
       const data = await res.json();
 
       if (!res.ok || data.success === false) {
