@@ -52,7 +52,7 @@ const handleEditClick = (category) =>  {
       try {
         setError(null);
 
-        const res = await fetch(`${API}/api/category/`);
+        const res = await fetch(`${API}/api/category`);
         const data = await res.json();
         
 
