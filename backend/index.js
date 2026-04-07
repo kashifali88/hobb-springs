@@ -4,7 +4,6 @@ import dotenv from 'dotenv';
 import userRouter from './routes/user.route.js';
 import authRouter from './routes/auth.route.js';
 import cookieParser from 'cookie-parser';
-import cors from 'cors'
 import categoryRouter from './routes/category.route.js';
 import productRouter from './routes/product.route.js';
 import cartRouter from './routes/cart.route.js';
@@ -24,8 +23,6 @@ server.use(cors({
   ],
   credentials: true
 }));
-
-
 
 
 // API routes
