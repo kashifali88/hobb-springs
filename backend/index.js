@@ -24,11 +24,7 @@ server.use(cors({
   ],
   credentials: true
 }));
-// Allow requests from your frontend
-server.use(cors({
-  origin: 'http://localhost:5173',
-  credentials: true,
-}));
+
 
 
 
