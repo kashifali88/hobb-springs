@@ -89,7 +89,7 @@ const handleLoadMore = () => {
   // Fetch all categories
   const getCategories = async () => {
     try {
-      const res = await fetch(`{${API}/api/category`);
+      const res = await fetch(`${API}/api/category`);
       const data = await res.json();
       if (!res.ok || data.success === false) throw new Error(data.message);
       setCategories(data.category);
