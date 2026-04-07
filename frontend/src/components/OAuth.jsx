@@ -1,11 +1,13 @@
 import React from 'react'
 import { app } from '../firebase'
 import { getAuth, GoogleAuthProvider, signInWithPopup } from 'firebase/auth'
-import { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { signInSuccess, signInFailure } from '../redux/authSlice';
+
 
 export default function OAuth() {
-  const [data, setData] = useState({})
+  const dispatch = useDispatch()
   const navigate = useNavigate()
   const API = import.meta.env.VITE_BACKEND_URL
 
@@ -28,13 +30,14 @@ export default function OAuth() {
       })
       const data = await res.json();
       if (!res.ok || data.success === false) {
-        return new Error(data.message)
+        dispatch(signInFailure(data.message || 'Google sign-in failed'))
+      } else {
+        dispatch(signInSuccess(data.userWithOutPassword))
+        navigate('/');
       }
-      setData(data)
-      navigate('/');
     } catch (error) {
       console.log(error);
-      
+      dispatch(signInFailure('Google sign-in failed'))
     }
   }
   return (
