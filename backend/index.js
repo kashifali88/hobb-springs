@@ -18,9 +18,12 @@ const server = express();
 server.use(express.json());
 server.use(cookieParser());
 server.use(cors({
-    origin: 'https://hobb-springs-ecommerce.onrender.com',
-    credentials: true,
-}))
+  origin: [
+    "http://localhost:5173",
+    "https://hobb-springs-ecommerce.onrender.com"
+  ],
+  credentials: true
+}));
 // Allow requests from your frontend
 server.use(cors({
   origin: 'http://localhost:5173',
