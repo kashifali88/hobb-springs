@@ -33,7 +33,7 @@ export default function OAuth() {
       if (!res.ok || data.success === false) {
         dispatch(signInFailure(data.message || 'Google sign-in failed'))
       } else {
-        dispatch(signInSuccess(data.userWithOutPassword))
+        dispatch(signInSuccess(data))
         navigate('/');
       }
     } catch (error) {
