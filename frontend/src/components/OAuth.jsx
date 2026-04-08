@@ -3,7 +3,7 @@ import { app } from '../firebase'
 import { getAuth, GoogleAuthProvider, signInWithPopup } from 'firebase/auth'
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { signInSuccess, signInFailure } from '../redux/userSlice';
+import { signInSuccess, signInFailure, signInStart } from '../redux/userSlice';
 
 
 export default function OAuth() {
@@ -17,6 +17,7 @@ export default function OAuth() {
       const provider = new GoogleAuthProvider();
       provider.setCustomParameters({prompt: 'select_account'});
       const result = await signInWithPopup(auth, provider);
+      dispatch(signInStart())
       const res = await fetch(`${API}/api/auth/google`, {
         method:'POST',
         headers: {
